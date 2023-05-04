@@ -19,6 +19,9 @@ class Snippet(models.Model):
     style = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.title} in {self.language }"
+
     class Meta:
         ordering = ['created_at']
 
