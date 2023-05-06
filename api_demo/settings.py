@@ -130,3 +130,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'testing_api.User'
+
+CSRF_TRUSTED_ORIGINS = ['https://drfrestapis-production.up.railway.app']
