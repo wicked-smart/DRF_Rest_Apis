@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['drfrestapis-production.up.railway.app', '127.0.0.1']
 INSTALLED_APPS = [
     'testing_api',
     'flight_booking',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
