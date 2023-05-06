@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'testing_api',
+    'flight_booking',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

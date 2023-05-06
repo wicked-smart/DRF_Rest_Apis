@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
 from testing_api.serializers import UserSerializer, SnippetSerializer
 from testing_api.models import User, Snippet
 from rest_framework.parsers import JSONParser
 
 # Create your views here.
 
-@csrf_exempt
+@api_view(['GET', 'POST'])
 def users_list(request):
 
     if request.method == "GET":
@@ -16,14 +20,14 @@ def users_list(request):
         users = UserSerializer(users, many=True)
         return JsonResponse(users.data, safe=False)
 
-@csrf_exempt
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def snippet_list(request):
 
     if request.method == 'GET':
 
         snippets = Snippet.objects.all()
         serializer = SnippetSerializer(snippets, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data, status=200)
 
     elif request.method == 'POST':
 
@@ -37,8 +41,8 @@ def snippet_list(request):
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=200)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
     
 
 
@@ -48,12 +52,12 @@ def snippets_detail(request, pk):
     try:
         snippet = Snippet.objects.get(id=pk)
     except Snippet.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=404)
 
     if request.method == 'GET':
         serializer = SnippetSerializer(snippet)
 
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data, safe=False)
 
 
     elif request.method == 'PUT':
@@ -63,8 +67,8 @@ def snippets_detail(request, pk):
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, safe=False)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, safe=False)
+        return Response(serializer.errors, status=400)
 
     elif request.method == 'PATCH':
 
@@ -74,9 +78,9 @@ def snippets_detail(request, pk):
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data, safe=False)
 
-        return JsonResponse(serializer.errors, status=400)
+        return Response(serializer.errors, status=400)
 
 
     
