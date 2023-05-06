@@ -1,1 +1,1 @@
-web: python3 manange.py makemigrations && python3 manange.py migrate && python3 manange.py collectstatic --no-input && gunicorn api_demo.wsgi
+web: python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py collectstatic --no-input && gunicorn api_demo.wsgi
