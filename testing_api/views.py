@@ -76,7 +76,7 @@ def snippets_detail(request, pk):
 
         serializer = SnippetSerializer(snippet, data=data, partial=True)
 
-        if serializer.is_valid():
+        if serializer.is_valid():   
             serializer.save()
             return Response(serializer.data, safe=False)
 
